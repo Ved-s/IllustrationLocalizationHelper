@@ -1,0 +1,9 @@
+{
+	"id": "ved_s.illustrationlochelper",
+	"name": "IllustrationLocalizationHelper",
+	"authors": "Ved_s",
+	"description": "This mod allows modders to make custom localized illustrations.",
+	"requirements": [],
+	"requirements_names": [],
+	"checksum_override_version": false
+}

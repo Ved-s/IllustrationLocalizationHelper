@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+  	<AssemblyName>IllustrationLocalizationHelper</AssemblyName>
+  	<TargetFramework>net48</TargetFramework>
+  	<PlatformTarget>AnyCPU</PlatformTarget>
+  	<LangVersion>10</LangVersion>
+  	<Nullable>enable</Nullable>
+
+    <RWPath>/home/ved-s/.steam/debian-installation/steamapps/common/Rain World</RWPath>
+    <RWModDir>IllustrationLocalizationHelper</RWModDir>
+
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RWPath)/RainWorld_Data/Managed/Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx">
+      <HintPath>$(RWPath)/BepInEx/core/BepInEx.dll</HintPath>
+    </Reference>
+    <Reference Include="HOOKS-Assembly-CSharp">
+      <HintPath>$(RWPath)/BepInEx/plugins/HOOKS-Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>$(RWPath)/BepInEx/core/Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb">
+      <HintPath>$(RWPath)/BepInEx/core/Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb">
+      <HintPath>$(RWPath)/BepInEx/core/Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks">
+      <HintPath>$(RWPath)/BepInEx/core/Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod">
+      <HintPath>$(RWPath)/BepInEx/core/MonoMod.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour">
+      <HintPath>$(RWPath)/BepInEx/core/MonoMod.RuntimeDetour.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.Utils">
+      <HintPath>$(RWPath)/BepInEx/core/MonoMod.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>$(RWPath)/RainWorld_Data/Managed/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(RWPath)/RainWorld_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(RWPath)/RainWorld_Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(RWPath)/RainWorld_Data/Managed/UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>$(RWPath)/RainWorld_Data/Managed/UnityEngine.InputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>$(RWPath)/RainWorld_Data/Managed/UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="CopyMod" AfterTargets="AfterBuild">
+
+    <RemoveDir Directories="$(RWPath)/RainWorld_Data/StreamingAssets/mods/$(RWModDir)" />
+
+    <MakeDir Directories="$(RWPath)/RainWorld_Data/StreamingAssets/mods/$(RWModDir)/plugins" />
+
+    <ItemGroup>
+      <ModFiles Include="mod/**/*.*" />
+    </ItemGroup>
+
+    <Copy 
+      SourceFiles="@(ModFiles)"
+      DestinationFiles="@(ModFiles->'$(RWPath)/RainWorld_Data/StreamingAssets/mods/$(RWModDir)/%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="false" 
+    />	
+
+    <Copy 
+      SourceFiles="$(OutDir)/$(AssemblyName).dll" 
+      DestinationFolder="$(RWPath)/RainWorld_Data/StreamingAssets/mods/$(RWModDir)/plugins" 
+      SkipUnchangedFiles="false" 
+    />	
+  </Target>
+</Project>
