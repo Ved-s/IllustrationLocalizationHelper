@@ -3,6 +3,7 @@
 	"name": "IllustrationLocalizationHelper",
 	"authors": "Ved_s",
 	"description": "This mod allows modders to make custom localized illustrations.",
+	"version": "1.0",
 	"requirements": [],
 	"requirements_names": [],
 	"checksum_override_version": false
